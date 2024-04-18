@@ -57,6 +57,7 @@ Caso tenta tenha sido configurado corretamente, sua aplicação estará sendo ex
 <div>
     <img src="screenshots/currency-converter.gif" />
 </div>
+<a href="https://www.flaticon.com/free-icons/exchange-rate" title="exchange rate icons">Exchange rate icons created by Freepik - Flaticon</a>
 
 ### Licença
 
