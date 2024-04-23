@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping()
+@CrossOrigin(origins = {"http://localhost:5173"})
 public class CurrencyConverterController {
 
     private final CurrencyService currencyService;
