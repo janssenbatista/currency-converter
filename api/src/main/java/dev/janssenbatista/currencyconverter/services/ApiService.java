@@ -27,9 +27,10 @@ public class ApiService {
 
     public Double convertCurrency(String from, String to) {
         final String BASE_URL = "https://v6.exchangerate-api.com";
-        try (HttpClient httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofMillis(3_000))
-                .build()) {
+        try {
+            HttpClient httpClient = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(3))
+                    .build();
             final URI uri = URI
                     .create(String.format("%s/v6/%s/pair/%s/%s", BASE_URL, apiKey, from.toUpperCase(), to.toUpperCase()));
             final HttpRequest request = HttpRequest.newBuilder(uri).GET().build();
