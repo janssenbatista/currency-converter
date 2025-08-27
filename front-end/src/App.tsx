@@ -56,9 +56,7 @@ function App() {
     event
   ) => {
     const { value } = event.target;
-    if (!value) {
-      setResult("");
-    }
+    setResult("");
     setValue(value.trim());
     validateInput(value);
   };
@@ -125,7 +123,7 @@ function App() {
           `${value} em ${apiRequest.from} equivale a ${conversionResult} em ${apiRequest.to}`
         );
       }
-    } catch (e: AxiosError | any) {
+    } catch (e) {
       console.error((e as AxiosError).response?.data);
     } finally {
       setValue("");
@@ -136,7 +134,7 @@ function App() {
   };
 
   function validateInput(value: string) {
-    var regex = /^(\d+)([.,](\d)+)?$/;
+    const regex = /^(\d+)([.,](\d)+)?$/;
     setValidInput(regex.test(value));
   }
 
