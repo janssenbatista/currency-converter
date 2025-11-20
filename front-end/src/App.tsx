@@ -24,7 +24,6 @@ function App() {
 
   const [value, setValue] = useState("");
   const [convertButtonText, setConvertButtonText] = useState("Converter");
-  const [isValidInput, setValidInput] = useState(true);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [result, setResult] = useState("");
   const [apiRequest, setApiRequest] = useState<ApiRequest>({
@@ -58,7 +57,6 @@ function App() {
     const { value } = event.target;
     setResult("");
     setValue(value.trim());
-    validateInput(value);
   };
 
   const handleSelectChange: React.ChangeEventHandler<HTMLSelectElement> = (
@@ -133,11 +131,6 @@ function App() {
     }
   };
 
-  function validateInput(value: string) {
-    const regex = /^(\d+)([.,](\d)+)?$/;
-    setValidInput(regex.test(value));
-  }
-
   function removeCurrencySymbol(currency: string): string {
     return currency.replace(/\([A-Z]{3}\)/, "").trim();
   }
@@ -153,15 +146,13 @@ function App() {
         value={value}
         ref={valueInputRef}
         onChange={handleInputChange}
-        type="text"
+        step={0.5}
+        type="number"
         className="input"
         name="value-input"
         id="value-input"
         placeholder="Valor a ser convertido"
       />
-      {!isValidInput && value && (
-        <p className="error-message">valor inválido</p>
-      )}
       <div id="select-container">
         <div className="select-item">
           <label className="select-item__label" htmlFor="from">
@@ -207,7 +198,7 @@ function App() {
 
       <button
         id="convert-button"
-        disabled={!value.trim() || !isValidInput}
+        disabled={!value.trim()}
         onClick={handleConvert}
       >
         {convertButtonText}
