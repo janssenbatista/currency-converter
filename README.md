@@ -54,9 +54,7 @@ Caso tenta tenha sido configurado corretamente, sua aplicação estará sendo ex
 
 ### Screenshot
 
-<video autoplay loop>
-  <source src="screenshots/conversor-sr.webm" type="video/webm" />
-</video>
+https://github.com/user-attachments/assets/265d774f-41c1-4d79-93e7-77f6f5ab52ea
 
 <a href="https://www.flaticon.com/free-icons/exchange-rate" title="exchange rate icons">Exchange rate icons created by Freepik - Flaticon</a>
 
