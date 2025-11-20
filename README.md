@@ -54,10 +54,12 @@ Caso tenta tenha sido configurado corretamente, sua aplicação estará sendo ex
 
 ### Screenshot
 
-<div>
-    <img src="screenshots/currency-converter.gif" />
-</div>
+<video autoplay loop>
+  <source src="screenshots/conversor-sr.webm" type="video/webm" />
+</video>
+
 <a href="https://www.flaticon.com/free-icons/exchange-rate" title="exchange rate icons">Exchange rate icons created by Freepik - Flaticon</a>
+
 
 ### Licença
 
