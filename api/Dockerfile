@@ -1,11 +1,13 @@
 FROM eclipse-temurin:21
 
+WORKDIR /builder
+
 COPY . .
 
-ARG JAR_FILE=build/libs/currency-converter-*-SNAPSHOT.jar
-
-RUN ./gradlew build && mkdir /app && cp ${JAR_FILE} app/app.jar
+RUN ./gradlew build
 
 WORKDIR /app
 
-ENTRYPOINT ["java","-jar","app.jar"]
+RUN cp ../builder/build/libs/currency-*-SNAPSHOT.jar app.jar && rm -rf /builder
+
+CMD [ "java", "-jar", "app.jar" ]
