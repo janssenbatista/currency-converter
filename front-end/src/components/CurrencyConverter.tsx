@@ -90,7 +90,8 @@ export default function CurencyConverter() {
       if (rate > 0) {
         setConvertedValue(() => value * rate);
       }
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       setErrorMessage(error.message);
     } finally {
       setIsLoading(false);
