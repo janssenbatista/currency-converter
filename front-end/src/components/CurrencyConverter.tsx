@@ -25,6 +25,7 @@ export default function CurencyConverter() {
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [isInverted, setIsInverted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasCurrenciesChanged, setHasCurrenciesChanged] = useState(true);
 
   const [requestDto, setRequestDto] = useState<RequestDto>({
     from: "BRL",
@@ -72,11 +73,13 @@ export default function CurencyConverter() {
   };
 
   const handleConvert = async () => {
+    if (requestDto.from === requestDto.to) return;
+
+    if (!hasCurrenciesChanged) return;
+
     setErrorMessage("");
     setIsInverted(false);
     setIsLoading(true);
-
-    if (requestDto.from === requestDto.to) return;
 
     try {
       const response = await axios.post<ResponseDto>(
@@ -96,6 +99,7 @@ export default function CurencyConverter() {
       setErrorMessage(error.message);
     } finally {
       setIsLoading(false);
+      setHasCurrenciesChanged(false);
     }
   };
 
@@ -129,8 +133,11 @@ export default function CurencyConverter() {
             currencies={currencies}
             selectedCurrency={requestDto.from}
             onSelectChange={(currency) => {
-              setConvertionRate(0);
-              setRequestDto((dto) => ({ ...dto, from: currency }));
+              if (requestDto.from !== currency) {
+                setConvertionRate(0);
+                setRequestDto((dto) => ({ ...dto, from: currency }));
+                setHasCurrenciesChanged(true);
+              }
             }}
             testId="from-select"
           />
@@ -159,8 +166,11 @@ export default function CurencyConverter() {
             selectedCurrency={requestDto.to}
             currencies={currencies}
             onSelectChange={(currency) => {
-              setConvertionRate(0);
-              setRequestDto((dto) => ({ ...dto, to: currency }));
+              if (requestDto.to !== currency) {
+                setConvertionRate(0);
+                setRequestDto((dto) => ({ ...dto, to: currency }));
+                setHasCurrenciesChanged(true);
+              }
             }}
             testId="to-select"
           />
