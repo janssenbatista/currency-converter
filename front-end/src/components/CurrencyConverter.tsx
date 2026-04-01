@@ -104,8 +104,8 @@ export default function CurencyConverter() {
   };
 
   return (
-    <main className="flex flex-row items-center justify-center w-full h-screen max-h-screen shadow-xl">
-      <section className="flex flex-col items-center justify-center gap-y-2 w-full mx-4 max-w-175 shadow-lg rounded-2xl border border-gray-300 p-4">
+    <main className="flex flex-row items-center justify-center w-dvw h-dvh">
+      <section className="flex flex-col items-center justify-center gap-y-2 w-full mx-4 max-w-175 shadow-xl rounded-2xl border border-gray-300 p-4">
         <img
           className="text-center"
           src={Logo}
