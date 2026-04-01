@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Currency } from "../types/currency";
 import axios from "axios";
+import { currencyToLocale } from "../utils/currencyLocale";
 
 interface RequestDto {
   from: string;
@@ -202,7 +203,17 @@ export default function CurencyConverter() {
           <p data-testid="result" className="text-3xl font-medium mt-2">
             {isLoading
               ? "Carregando..."
-              : `${value} ${requestDto.from} = ${convertedValue.toFixed(4)} ${requestDto.to}`}
+              : `${Intl.NumberFormat(currencyToLocale(requestDto.from), {
+                  style: "currency",
+                  currency: requestDto.from,
+                }).format(value)} = ${Intl.NumberFormat(
+                  currencyToLocale(requestDto.to),
+                  {
+                    style: "currency",
+                    currency: requestDto.to,
+                    maximumFractionDigits: 4,
+                  },
+                ).format(convertedValue)}`}
           </p>
         )}
       </section>
