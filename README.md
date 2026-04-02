@@ -1,87 +1,160 @@
 # Conversor de Moedas
 
-Aplicação desenvolvida para resolução de um dos desafios da formação da Turma 6 da [Oracle Next Education](https://www.oracle.com/br/education/oracle-next-education/) em parceria com a [Alura](https://www.alura.com.br/)
+Aplicação full stack para conversão de moedas em tempo real usando a ExchangeRate API. O projeto foi desenvolvido como desafio da formação da Turma 6 da [Oracle Next Education](https://www.oracle.com/br/education/oracle-next-education/) em parceria com a [Alura](https://www.alura.com.br/).
 
-### 1. Configuração
+## Visão geral do projeto
 
-⚠️ Essa aplicação utiliza a ***ExchangeRate API*** para conversão das moedas, então é necessário obter uma chave da api [clicando aqui](https://app.exchangerate-api.com/), criar o arquivo *application.properties* dentro do diretório **/api/src/main/resources** e inserir o seguite conteúdo:
+Este repositório possui duas aplicações:
 
+- API (`/api`): backend em Java 21 com Spring Boot.
+- Front-end (`/front-end`): interface em React + TypeScript + Vite.
+
+Fluxo da aplicação:
+
+1. O front-end consulta a API para listar moedas disponíveis.
+2. O usuário escolhe moeda de origem/destino e solicita a conversão.
+3. A API consulta a ExchangeRate API e retorna a taxa para o front-end.
+
+## Stack utilizada
+
+- Java 21 + Spring Boot (API)
+- Gradle (build e testes do backend)
+- React 18 + TypeScript + Vite (front-end)
+- Docker e Docker Compose (execução em contêineres)
+
+## Estrutura de pastas
+
+```text
+.
+|- api/         # API Spring Boot
+|- front-end/   # Aplicação React
+|- docker-compose.yml
+|- README.md
 ```
-apiKey=SUA_CHAVE_DA_API
+
+## Pre-requisitos
+
+Para execução local (sem Docker):
+
+- JDK 21
+- Node.js 20+ e npm
+
+Para execução com contêineres:
+
+- Docker
+- Docker Compose
+
+## Configuração de ambiente
+
+### 1) Chave da ExchangeRate API (backend)
+
+Crie uma conta e gere uma chave em [ExchangeRate API](https://app.exchangerate-api.com/).
+
+No backend, configure o arquivo `api/src/main/resources/application.properties` com:
+
+```properties
+api.key=SUA_CHAVE_DA_API
 ```
 
-### 2. Iniciando a API da aplicação
+Se preferir, copie o exemplo:
 
-- ⚠️  É necessário ter concluído o *passo 1*
-
-- É necessário ter instalado na sua máquina alguma versão do **JDK**. Agumas opcões: [Oracle JDK](https://www.oracle.com/java/technologies/downloads/) ou [OpenJDK](https://openjdk.org/)
-- Com o JDK já instalado, dentro do diretório ***/api*** execute o seguinte comando:
-
+```bash
+cp api/src/main/resources/application.example.properties api/src/main/resources/application.properties
 ```
+
+### 2) URL da API no front-end
+
+No front-end, configure o arquivo `front-end/.env` com:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+Se preferir, copie o exemplo:
+
+```bash
+cp front-end/.env.example front-end/.env
+```
+
+## Como executar localmente
+
+### 1) Subir a API
+
+```bash
+cd api
 ./gradlew bootRun
 ```
 
-- Caso realize alguma alteração, rode a suíte de testes para verificar se a aplicação ainda está funcionando corretamente:
+API disponível em `http://localhost:8080`.
 
-```
-./gradlew test
-```
+Endpoints principais:
 
-### 3. Iniciando a aplicação
+- `GET /health`
+- `GET /currencies`
+- `POST /convert`
 
-- ⚠️  É necessário ter concluído o *passo 2*
-- É necessário ter instalado na sua máquina o Node(runtime javascript) e NPM(gerenciador de pacotes do node). Você pode instalá-los [clicando aqui](https://nodejs.org/).
+### 2) Subir o front-end
 
-- Com o Node e NPM já instalados, dentro do diretório ***/front-end*** execute o seguinte comando para instalar as dependências necessárias do projeto:
+Em outro terminal:
 
-```
+```bash
+cd front-end
 npm install
-```
-
-- E em seguida o seguinte comando para rodar o servidor da aplicação em modo de desenvolvimento:
-
-```
 npm run dev
 ```
 
-- Caso deseje executar os testes de interface, execute o seguinte comando:
+Aplicação disponível em `http://localhost:5173`.
 
+## Como executar com Docker Compose
+
+Na raiz do projeto:
+
+```bash
+docker compose up --build
 ```
+
+Serviços:
+
+- Front-end: `http://localhost:5173`
+- API: `http://localhost:8080`
+
+Para encerrar:
+
+```bash
+docker compose down
+```
+
+## Testes
+
+### Backend
+
+```bash
+cd api
+./gradlew test
+```
+
+### Front-end (unitários)
+
+```bash
+cd front-end
 npm test
 ```
 
-Caso tenta tenha sido configurado corretamente, sua aplicação estará sendo executada em http://localhost:5173
+## Solução de problemas
 
-### Screenshot
+- Erro de CORS/conexão no front-end:
+  verifique se a API está ativa em `http://localhost:8080` e se `VITE_API_URL` aponta para essa URL.
+- Erro de autenticação na API externa:
+  valide a chave em `api.key` no arquivo `application.properties`.
+- Porta em uso:
+  altere a porta da aplicação em execução ou finalize o processo que está usando `5173` ou `8080`.
+
+## Screenshot
 
 https://github.com/user-attachments/assets/265d774f-41c1-4d79-93e7-77f6f5ab52ea
 
 <a href="https://www.flaticon.com/free-icons/exchange-rate" title="exchange rate icons">Exchange rate icons created by Freepik - Flaticon</a>
 
+## Licença
 
-### Licença
-
-```
-MIT License
-
-Copyright (c) 2024 Janssen Batista
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
+Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE).
