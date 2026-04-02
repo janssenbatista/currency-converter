@@ -151,7 +151,7 @@ npm test
 
 ## Screenshot
 
-https://github.com/user-attachments/assets/265d774f-41c1-4d79-93e7-77f6f5ab52ea
+<img src="./screenshots/cc.gif" alt="app screenshot">
 
 <a href="https://www.flaticon.com/free-icons/exchange-rate" title="exchange rate icons">Exchange rate icons created by Freepik - Flaticon</a>
 
