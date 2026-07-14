@@ -25,4 +25,4 @@ dist-ssr
 
 .env
 
-pnpm-lock.yaml
+pnpm*
